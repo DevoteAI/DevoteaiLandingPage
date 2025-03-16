@@ -358,6 +358,13 @@ export default function CaseStudies() {
 
   return (
     <div className="min-h-screen bg-black">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
+        <Link to="/" className="inline-flex items-center text-cyan-400 hover:text-cyan-300 mb-8">
+          <ArrowLeft className="w-5 h-5 mr-2" />
+          Back to Home
+        </Link>
+      </div>
+
       <Hero
         title="Case Studies"
         subtitle="Explore how we've helped leading companies transform their operations with cutting-edge AI solutions. These success stories demonstrate our proven track record in delivering exceptional business outcomes."
@@ -378,12 +385,7 @@ export default function CaseStudies() {
         actionsClassName="mt-8"
       />
       
-      <div id="case-studies" className="container mx-auto px-4 py-32 relative">
-        <Link to="/" className="inline-flex items-center text-cyan-400 hover:text-cyan-300 mb-12">
-          <ArrowLeft className="w-5 h-5 mr-2" />
-          Back to Home
-        </Link>
-
+      <div id="case-studies" className="container mx-auto px-4 py-24 relative">
         {/* Horizontal scrolling container */}
         <div 
           ref={scrollContainerRef}

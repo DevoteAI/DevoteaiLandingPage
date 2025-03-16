@@ -14,12 +14,14 @@ import CaseStudies from './pages/CaseStudies';
 import Projects from './pages/Projects';
 import ScrollToTop from './components/ScrollToTop';
 import ChatbotWidget from './components/ChatbotWidget';
+import { Navigation } from './components/Navigation';
 
 function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
       <ChatbotWidget />
+      <Navigation />
       <Routes>
         <Route path="/" element={
           <main>

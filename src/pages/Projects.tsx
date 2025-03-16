@@ -392,6 +392,7 @@ export default function Projects() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => window.open('https://calendly.com/devoteai', '_blank')}
             className={`text-white px-12 py-4 rounded-full text-lg font-medium transition-all shadow-lg ${
               currentProject === 1
                 ? "bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 shadow-emerald-500/20"

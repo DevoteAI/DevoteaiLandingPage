@@ -1,54 +1,24 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Brain, Globe2, Sparkles, ChevronDown, PenTool, MessageSquare, Mic, Notebook, Zap, Menu, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Globe2, Sparkles, Zap, Brain } from 'lucide-react';
 
 const handleCalendlyClick = () => {
   window.open('https://calendly.com/devoteai', '_blank');
 };
 
-const services = [
-  {
-    icon: PenTool,
-    title: 'AI Content Generation',
-    description: 'Create engaging, SEO-optimized content at scale',
-    link: '/services/ai-content-generation'
-  },
-  {
-    icon: Brain,
-    title: 'Custom AI Solutions',
-    description: 'Bespoke AI systems built for your needs',
-    link: '/services/custom-ai-solutions'
-  },
-  {
-    icon: MessageSquare,
-    title: 'Chatbot Development',
-    description: 'Intelligent conversational AI assistants',
-    link: '/services/chatbot-development'
-  },
-  {
-    icon: Mic,
-    title: 'AI Voice Agents',
-    description: 'Natural voice interactions powered by AI',
-    link: '/services/ai-voice-agents'
-  },
-  {
-    icon: Notebook,
-    title: 'Process Automation',
-    description: 'Streamline workflows with intelligent automation',
-    link: '/services/process-automation'
-  },
-  {
-    icon: Zap,
-    title: 'AI Integration',
-    description: 'Seamlessly integrate AI into your systems',
-    link: '/services/ai-integration'
-  }
-];
-
 export default function Hero() {
-  const [isServicesOpen, setIsServicesOpen] = React.useState(false);
-  const [isMobileServicesOpen, setIsMobileServicesOpen] = React.useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [prevScrollPos]);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-[#0A0F2C] to-[#141B41]">
@@ -63,7 +33,7 @@ export default function Hero() {
       </div>
 
       {/* Content */}
-      <header className="fixed top-0 left-0 right-0 z-30 bg-gradient-to-b from-[#0A0F2C] to-transparent py-4">
+      <header className={`fixed top-0 left-0 right-0 z-[40] bg-gradient-to-b from-[#0A0F2C] to-transparent py-4 transition-transform duration-300 ${visible ? 'translate-y-0' : '-translate-y-full'} md:block hidden`}>
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <img
@@ -80,142 +50,7 @@ export default function Hero() {
               </span>
             </div>
           </div>
-          
-          {/* Mobile Menu Button */}
-          <button 
-            className="md:hidden text-white p-2"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
-          </button>
-
-          <div className="hidden md:flex items-center space-x-8">
-            <div className="relative group">
-              <button 
-                className="flex items-center space-x-1 text-gray-300 hover:text-white transition-colors"
-                onMouseEnter={() => setIsServicesOpen(true)}
-                onMouseLeave={() => setIsServicesOpen(false)}
-              >
-                <span>Services</span>
-                <ChevronDown className="w-4 h-4" />
-              </button>
-              
-              {isServicesOpen && (
-                <div 
-                  className="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-[480px]"
-                  onMouseEnter={() => setIsServicesOpen(true)}
-                  onMouseLeave={() => setIsServicesOpen(false)}
-                >
-                  <div className="bg-[#0A0F2C]/95 backdrop-blur-xl rounded-2xl p-4 border border-white/10 shadow-xl shadow-black/20">
-                    <div className="grid grid-cols-1 gap-2">
-                      {services.map((service, index) => (
-                        <Link
-                          key={index}
-                          to={service.link}
-                          className="flex items-start space-x-4 p-3 rounded-xl hover:bg-white/5 transition-colors group"
-                        >
-                          <service.icon className="w-6 h-6 text-cyan-400 group-hover:scale-110 transition-transform" />
-                          <div>
-                            <h3 className="text-white font-medium mb-1">{service.title}</h3>
-                            <p className="text-sm text-gray-400">{service.description}</p>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            <Link to="/projects" className="text-gray-300 hover:text-white transition-colors">AI Products</Link>
-            <Link to="/case-studies" className="text-gray-300 hover:text-white transition-colors">Case Studies</Link>
-            <a href="#meet-creators" className="text-gray-300 hover:text-white transition-colors">Team</a>
-            <a href="#contact" className="text-gray-300 hover:text-white transition-colors">Contact</a>
-            <button 
-              onClick={handleCalendlyClick}
-              className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white px-6 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg shadow-cyan-500/20 font-medium"
-            >
-              Get Started
-            </button>
-          </div>
         </nav>
-
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-[#0A0F2C]/95 backdrop-blur-xl border-t border-white/10 p-4 z-50">
-            <div className="flex flex-col space-y-4 max-h-[70vh] overflow-y-auto">
-              <div className="space-y-2">
-                <button
-                  onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
-                  className="flex items-center justify-between w-full text-gray-300 hover:text-white p-3 rounded-xl hover:bg-white/5 transition-colors"
-                >
-                  <span>Services</span>
-                  <ChevronDown className={`w-4 h-4 transition-transform ${isMobileServicesOpen ? 'rotate-180' : ''}`} />
-                </button>
-                <div className={`space-y-2 transition-all duration-300 ${isMobileServicesOpen ? 'max-h-[500px]' : 'max-h-0'} overflow-hidden`}>
-                  {services.map((service, index) => (
-                    <Link
-                      key={index}
-                      to={service.link}
-                      className="flex items-start space-x-3 p-3 rounded-xl hover:bg-white/5 transition-colors ml-4"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      <service.icon className="w-5 h-5 text-cyan-400" />
-                      <div>
-                        <h3 className="text-white font-medium">{service.title}</h3>
-                        <p className="text-sm text-gray-400">{service.description}</p>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-              
-              <div className="space-y-2 border-t border-white/10 pt-4">
-                <Link 
-                  to="/projects" 
-                  className="block text-gray-300 hover:text-white p-3 rounded-xl hover:bg-white/5 transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  AI Products
-                </Link>
-                <Link 
-                  to="/case-studies" 
-                  className="block text-gray-300 hover:text-white p-3 rounded-xl hover:bg-white/5 transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Case Studies
-                </Link>
-                <a 
-                  href="#meet-creators" 
-                  className="block text-gray-300 hover:text-white p-3 rounded-xl hover:bg-white/5 transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Team
-                </a>
-                <a 
-                  href="#contact" 
-                  className="block text-gray-300 hover:text-white p-3 rounded-xl hover:bg-white/5 transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Contact
-                </a>
-              </div>
-              
-              <button 
-                onClick={() => {
-                  handleCalendlyClick();
-                  setIsMobileMenuOpen(false);
-                }}
-                className="w-full bg-black text-white px-6 py-3 rounded-xl border border-white/20 hover:bg-gray-900 transition-all font-medium"
-              >
-                Get Started
-              </button>
-            </div>
-          </div>
-        )}
       </header>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-32">
