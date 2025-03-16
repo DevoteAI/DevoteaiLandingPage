@@ -10,6 +10,7 @@ import ChatbotDevelopment from './pages/ChatbotDevelopment';
 import AIIntegration from './pages/AIIntegration';
 import AIVoiceAgents from './pages/AIVoiceAgents';
 import ProcessAutomation from './pages/ProcessAutomation';
+import CaseStudies from './pages/CaseStudies';
 import Projects from './pages/Projects';
 import ScrollToTop from './components/ScrollToTop';
 import ChatbotWidget from './components/ChatbotWidget';
@@ -34,6 +35,7 @@ function App() {
         <Route path="/services/ai-voice-agents" element={<AIVoiceAgents />} />
         <Route path="/services/ai-integration" element={<AIIntegration />} />
         <Route path="/services/process-automation" element={<ProcessAutomation />} />
+        <Route path="/case-studies" element={<CaseStudies />} />
         <Route path="/projects" element={<Projects />} />
       </Routes>
     </BrowserRouter>

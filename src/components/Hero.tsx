@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Brain, Globe2, Sparkles, ChevronDown, PenTool, MessageSquare, Mic, Notebook, Zap } from 'lucide-react';
+import { Brain, Globe2, Sparkles, ChevronDown, PenTool, MessageSquare, Mic, Notebook, Zap, Menu, X } from 'lucide-react';
 
 const handleCalendlyClick = () => {
   window.open('https://calendly.com/devoteai', '_blank');
@@ -47,6 +47,8 @@ const services = [
 
 export default function Hero() {
   const [isServicesOpen, setIsServicesOpen] = React.useState(false);
+  const [isMobileServicesOpen, setIsMobileServicesOpen] = React.useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-[#0A0F2C] to-[#141B41]">
@@ -78,6 +80,19 @@ export default function Hero() {
               </span>
             </div>
           </div>
+          
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden text-white p-2"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
+          </button>
+
           <div className="hidden md:flex items-center space-x-8">
             <div className="relative group">
               <button 
@@ -116,6 +131,7 @@ export default function Hero() {
               )}
             </div>
             <Link to="/projects" className="text-gray-300 hover:text-white transition-colors">AI Products</Link>
+            <Link to="/case-studies" className="text-gray-300 hover:text-white transition-colors">Case Studies</Link>
             <a href="#meet-creators" className="text-gray-300 hover:text-white transition-colors">Team</a>
             <a href="#contact" className="text-gray-300 hover:text-white transition-colors">Contact</a>
             <button 
@@ -126,6 +142,80 @@ export default function Hero() {
             </button>
           </div>
         </nav>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 right-0 bg-[#0A0F2C]/95 backdrop-blur-xl border-t border-white/10 p-4 z-50">
+            <div className="flex flex-col space-y-4 max-h-[70vh] overflow-y-auto">
+              <div className="space-y-2">
+                <button
+                  onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
+                  className="flex items-center justify-between w-full text-gray-300 hover:text-white p-3 rounded-xl hover:bg-white/5 transition-colors"
+                >
+                  <span>Services</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform ${isMobileServicesOpen ? 'rotate-180' : ''}`} />
+                </button>
+                <div className={`space-y-2 transition-all duration-300 ${isMobileServicesOpen ? 'max-h-[500px]' : 'max-h-0'} overflow-hidden`}>
+                  {services.map((service, index) => (
+                    <Link
+                      key={index}
+                      to={service.link}
+                      className="flex items-start space-x-3 p-3 rounded-xl hover:bg-white/5 transition-colors ml-4"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <service.icon className="w-5 h-5 text-cyan-400" />
+                      <div>
+                        <h3 className="text-white font-medium">{service.title}</h3>
+                        <p className="text-sm text-gray-400">{service.description}</p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="space-y-2 border-t border-white/10 pt-4">
+                <Link 
+                  to="/projects" 
+                  className="block text-gray-300 hover:text-white p-3 rounded-xl hover:bg-white/5 transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  AI Products
+                </Link>
+                <Link 
+                  to="/case-studies" 
+                  className="block text-gray-300 hover:text-white p-3 rounded-xl hover:bg-white/5 transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Case Studies
+                </Link>
+                <a 
+                  href="#meet-creators" 
+                  className="block text-gray-300 hover:text-white p-3 rounded-xl hover:bg-white/5 transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Team
+                </a>
+                <a 
+                  href="#contact" 
+                  className="block text-gray-300 hover:text-white p-3 rounded-xl hover:bg-white/5 transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Contact
+                </a>
+              </div>
+              
+              <button 
+                onClick={() => {
+                  handleCalendlyClick();
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full bg-black text-white px-6 py-3 rounded-xl border border-white/20 hover:bg-gray-900 transition-all font-medium"
+              >
+                Get Started
+              </button>
+            </div>
+          </div>
+        )}
       </header>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-32">
