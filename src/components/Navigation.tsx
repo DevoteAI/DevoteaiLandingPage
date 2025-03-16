@@ -35,47 +35,47 @@ const handleNavigation = (item: any, navigate: any, location: any) => {
 const data = [
   {
     title: 'AI Content Generation',
-    icon: <PenTool className='h-full w-full text-cyan-400' />,
+    icon: <PenTool className='h-full w-full text-white' />,
     href: '/services/ai-content-generation'
   },
   {
     title: 'Custom AI Solutions',
-    icon: <Brain className='h-full w-full text-cyan-400' />,
+    icon: <Brain className='h-full w-full text-white' />,
     href: '/services/custom-ai-solutions'
   },
   {
     title: 'Chatbot Development',
-    icon: <MessageSquare className='h-full w-full text-cyan-400' />,
+    icon: <MessageSquare className='h-full w-full text-white' />,
     href: '/services/chatbot-development'
   },
   {
     title: 'AI Voice Agents',
-    icon: <Mic className='h-full w-full text-cyan-400' />,
+    icon: <Mic className='h-full w-full text-white' />,
     href: '/services/ai-voice-agents'
   },
   {
     title: 'Process Automation',
-    icon: <Notebook className='h-full w-full text-cyan-400' />,
+    icon: <Notebook className='h-full w-full text-white' />,
     href: '/services/process-automation'
   },
   {
     title: 'AI Integration',
-    icon: <Zap className='h-full w-full text-cyan-400' />,
+    icon: <Zap className='h-full w-full text-white' />,
     href: '/services/ai-integration'
   },
   {
     title: 'AI Projects',
-    icon: <Boxes className='h-full w-full text-cyan-400' />,
+    icon: <Boxes className='h-full w-full text-white' />,
     href: '/projects'
   },
   {
     title: 'Case Studies',
-    icon: <FileText className='h-full w-full text-cyan-400' />,
+    icon: <FileText className='h-full w-full text-white' />,
     href: '/case-studies'
   },
   {
     title: 'Team',
-    icon: <Users className='h-full w-full text-cyan-400' />,
+    icon: <Users className='h-full w-full text-white' />,
     href: '#meet-creators',
     onClick: (navigate: any, pathname: string) => scrollToTeam(navigate, pathname)
   }
